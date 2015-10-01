@@ -5,25 +5,40 @@ apply plugin: 'eclipse'
 
 repositories {
     jcenter()
+    maven { url = 'https://repository.apache.org/snapshots' }
 }
 
 dependencies {
     compile     "org.qi4j.core:org.qi4j.core.bootstrap:2.1"
     compile     "org.qi4j.library:org.qi4j.library.constraints:2.1"
+    compile     "org.qi4j.library:org.qi4j.library.fileconfig:2.1"
+    compile     "org.qi4j.library:org.qi4j.library.jersey:2.1.1-SNAPSHOT"
+    compile     "org.qi4j.extension:org.qi4j.extension.valueserialization-jackson:2.1"
+    compile     "org.qi4j.extension:org.qi4j.extension.entitystore-memory:2.1"
+    compile     "org.qi4j.extension:org.qi4j.extension.entitystore-file:2.1"
+    compile     "org.qi4j.extension:org.qi4j.extension.entitystore-leveldb:2.1"
+    compile     "org.qi4j.extension:org.qi4j.extension.indexing-rdf:2.1"
+    compile     "org.qi4j.extension:org.qi4j.extension.indexing-elasticsearch:2.1"
     compile     "org.qi4j.tool:org.qi4j.tool.envisage:2.1"
 
     runtime     "org.qi4j.core:org.qi4j.core.runtime:2.1"
     runtime     "org.slf4j:slf4j-simple:1.7.10"
 
     testCompile "org.qi4j.core:org.qi4j.core.testsupport:2.1"
+    testCompile 'com.jayway.restassured:rest-assured:2.5.0'
 }
 
 task runComposition( type:JavaExec ) {
     main = 'org.apache.con.composition.CompositionMain'
-    classpath = sourceSets.test.runtimeClasspath
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 task runAssembly( type:JavaExec ) {
     main = 'org.apache.con.assembly.AssemblyMain'
-    classpath = sourceSets.test.runtimeClasspath
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task runTodos( type: JavaExec ) {
+    main = 'org.apache.con.todos.TodosMain'
+    classpath = sourceSets.main.runtimeClasspath
 }
