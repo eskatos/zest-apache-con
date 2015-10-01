@@ -27,11 +27,9 @@ public class TodosApplicationAssembler
     public static final String LAYER_CONFIG = "Configuration Layer";
     public static final String LAYER_STORAGE = "Storage Layer";
     public static final String LAYER_DOMAIN = "Domain Layer";
-    public static final String LAYER_USECASES = "Usecases Layer";
     public static final String LAYER_CONNECTIVITY = "Connectivity Layer";
 
     public static final String MODULE_CONFIGS = "Configurations Module";
-    public static final String MODULE_USECASES = "Usecases Module";
     public static final String MODULE_REST = "REST Module";
 
     @Override
@@ -43,19 +41,16 @@ public class TodosApplicationAssembler
         LayerAssembly configLayer = assembly.layer( LAYER_CONFIG );
         LayerAssembly storageLayer = assembly.layer( LAYER_STORAGE );
         LayerAssembly domainLayer = assembly.layer( LAYER_DOMAIN );
-        LayerAssembly usecasesLayer = assembly.layer( LAYER_USECASES );
         LayerAssembly connectivityLayer = assembly.layer( LAYER_CONNECTIVITY );
 
         ModuleAssembly configModule = assembleConfiguration( configLayer );
         assembleStorage( storageLayer, configModule );
         assembleDomain( domainLayer );
-        assembleUsecases( usecasesLayer );
         assembleConnectivity( connectivityLayer );
 
         storageLayer.uses( configLayer );
         domainLayer.uses( storageLayer );
-        usecasesLayer.uses( domainLayer );
-        connectivityLayer.uses( usecasesLayer, domainLayer, storageLayer );
+        connectivityLayer.uses( domainLayer, storageLayer );
 
         return assembly;
     }
@@ -123,11 +118,6 @@ public class TodosApplicationAssembler
         domainModule.entities( Todo.class ).visibleIn( Visibility.application );
         domainModule.values( Todo.class ).visibleIn( Visibility.application );
         domainModule.services( InitialData.class ).instantiateOnStartup();
-    }
-
-    private void assembleUsecases( LayerAssembly usecasesLayer )
-    {
-        usecasesLayer.module( MODULE_USECASES );
     }
 
     private void assembleConnectivity( LayerAssembly connectivityLayer )
