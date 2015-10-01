@@ -10,6 +10,7 @@ repositories {
 dependencies {
     compile     "org.qi4j.core:org.qi4j.core.bootstrap:2.1"
     compile     "org.qi4j.library:org.qi4j.library.constraints:2.1"
+    compile     "org.qi4j.tool:org.qi4j.tool.envisage:2.1"
 
     runtime     "org.qi4j.core:org.qi4j.core.runtime:2.1"
     runtime     "org.slf4j:slf4j-simple:1.7.10"
@@ -18,11 +19,11 @@ dependencies {
 }
 
 task runComposition( type:JavaExec ) {
-    main = 'org.apache.con.composition.Main'
+    main = 'org.apache.con.composition.CompositionMain'
     classpath = sourceSets.test.runtimeClasspath
 }
 
 task runAssembly( type:JavaExec ) {
-    main = 'org.apache.con.assembly.Main'
+    main = 'org.apache.con.assembly.AssemblyMain'
     classpath = sourceSets.test.runtimeClasspath
 }
