@@ -26,8 +26,8 @@ public class CompositionMain
         Module module = assembler.module();
 
         Speaker speaker = module.newTransient( Speaker.class );
-        
-        System.out.println( speaker.sayHelloTo( "attendees" ) );
-        System.out.println( speaker.sayGoodbyeTo( "attendees" ) );
+
+        System.out.println( speaker.sayHelloTo( "apachees" ) );
+        System.out.println( speaker.sayGoodbyeTo( "apachees" ) );
     }
 }
