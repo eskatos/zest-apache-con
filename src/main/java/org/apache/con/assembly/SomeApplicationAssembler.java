@@ -1,6 +1,7 @@
 package org.apache.con.assembly;
 
 import org.apache.con.composition.Speaker;
+import org.qi4j.api.common.Visibility;
 import org.qi4j.bootstrap.ApplicationAssembler;
 import org.qi4j.bootstrap.ApplicationAssembly;
 import org.qi4j.bootstrap.ApplicationAssemblyFactory;
@@ -21,9 +22,15 @@ public class SomeApplicationAssembler
 
         LayerAssembly someLayer = assembly.layer( "Some Layer" );
         ModuleAssembly someModule = someLayer.module( "Some Module" );
-        someModule.transients( Speaker.class );
+        someModule.transients( Speaker.class )
+            .visibleIn( Visibility.application );
 
         ModuleAssembly otherModule = someLayer.module( "Other Module" );
+
+        LayerAssembly anotherLayer = assembly.layer( "Another Layer" );
+        anotherLayer.module( "Another Module" );
+
+        anotherLayer.uses( someLayer);
 
         return assembly;
     }

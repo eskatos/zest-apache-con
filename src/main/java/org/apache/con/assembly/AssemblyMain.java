@@ -15,7 +15,7 @@ public class AssemblyMain
     {
         Application application = new Energy4Java().newApplication( new SomeApplicationAssembler() );
 
-        Module other = application.findModule( "Some Layer", "Other Module" );
+        Module other = application.findModule( "Another Layer", "Another Module" );
         Speaker speaker = other.newTransient( Speaker.class );
 
         System.out.println( speaker.sayHelloTo( "apachees" ) );
