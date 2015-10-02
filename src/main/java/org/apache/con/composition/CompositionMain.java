@@ -5,6 +5,7 @@ import org.qi4j.api.structure.Module;
 import org.qi4j.bootstrap.AssemblyException;
 import org.qi4j.bootstrap.ModuleAssembly;
 import org.qi4j.bootstrap.SingletonAssembler;
+import org.qi4j.envisage.Envisage;
 
 public class CompositionMain
 {
@@ -17,10 +18,7 @@ public class CompositionMain
             public void assemble( ModuleAssembly module )
                 throws AssemblyException
             {
-                module.transients( Speaker.class )
-                    .withMixins( HelloMixin.class, GoodbyeMixin.class )
-                    .withConcerns( ExclamationConcern.class )
-                    .withSideEffects( MailNotifySideEffect.class );
+                module.transients( Speaker.class );
             }
         };
         Module module = assembler.module();
@@ -29,5 +27,7 @@ public class CompositionMain
 
         System.out.println( speaker.sayHelloTo( "apachees" ) );
         System.out.println( speaker.sayGoodbyeTo( "apachees" ) );
+
+        new Envisage().run( assembler.application().descriptor() );
     }
 }
